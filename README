@@ -5,3 +5,10 @@ Run kafka_consumer_misinformation.py TOPIC1 TOPIC2 TRAININGDATAPATH MODELPATH to
 Other scripts kafka_consumer_echo.py and kafka_producer_inputjsons.py are for debugging and probably will not be useful. 
 python kafka_producer_inputjsons.py TOPIC1 loads jsons from standard input and sends them to TOPIC1.
 python kafka_consumer_echo.py TOPIC2 loads jsons from TOPIC2 and print them.
+
+The way I run it on my machine for checking it runs is (each line in different terminal; you need to add topics test1 and test2 before):
+python kafka_consumer_echo.py test2
+cat kafka_example.txt | python kafka_producer_inputjsons.py test1
+python kafka_consumer_misinformation.py test1 test2 data/twoPHEME_datasets_as_events_041015.csv results/store_models_test/BROWNGPjoinedfeaturesPooledLIN0.pick
+
+You will need to install GPy and NLTK.
