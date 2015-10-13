@@ -42,32 +42,29 @@ def map_to_string_label(lbl):
         return "question"
     if lbl==14:
         return "comment"
-def process_jsons(jsons):
+def process_jsons(jsons, header, m):
     for j in jsons:
         X=np.zeros((1, len(header)))
         for indh, valh in enumerate(header):
             if "BROWN_STR" not in valh:
                 break
             browncluster=valh.split("_")[2]
-            #print "browncluster, j:", browncluster, j
             if browncluster in j["BROWN_STR"]:
                 X[0,indh]=j["BROWN_STR"][browncluster]
         misinfo, results_dict=m.predict_certainty(X)
         j["pheme_sdqc"]=(map_to_string_label(misinfo[0]), (results_dict[misinfo[0]]/np.sum(results_dict.values())).flatten()[0])
         j.pop("BROWN_STR", None)
-        #print json.dumps(j,indent=4)
         yield j
 if __name__=="__main__":
     #Arguments for the script: trained model and training set used to train that model:
     modelpath=sys.argv[1]
     trainingdatapath=sys.argv[2]#"data/twoPHEME_datasets_as_events_041015.csv"
     outputfile=sys.argv[3]#"kafka_out.txt"
+    
     #format: Brown clusters from X; timestamp event is_simple_retweet is_complex_retweet id support
     header=open(trainingdatapath).readline().split()
     m=pickle.load(open(modelpath, "r"))
     fin = sys.stdin
-    jsons=json.loads(fin.readline())#[json.loads(x) for x in fin.xreadlines()]
+    jsons=json.loads(fin.readline())
     fout=open(outputfile, 'w')
-    #for j in process_jsons(jsons):
-    json.dump(list(process_jsons(jsons)), fout)
-
+    json.dump(list(process_jsons(jsons, header, m)), fout)
