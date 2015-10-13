@@ -1,0 +1,7 @@
+This is kafka implementation of the SDQC system.
+
+Run kafka_consumer_misinformation.py TOPIC1 TOPIC2 TRAININGDATAPATH MODELPATH to read jsons from TOPIC1 and output resulting jsons to TOPIC2.
+
+Other scripts kafka_consumer_echo.py and kafka_producer_inputjsons.py are for debugging and probably will not be useful. 
+python kafka_producer_inputjsons.py TOPIC1 loads jsons from standard input and sends them to TOPIC1.
+python kafka_consumer_echo.py TOPIC2 loads jsons from TOPIC2 and print them.
