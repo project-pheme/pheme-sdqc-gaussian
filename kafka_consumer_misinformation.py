@@ -37,7 +37,7 @@ with client.topics[topicout].get_producer() as producer:
             command="cat "+FILE_TMP2+" | python text.py -t txt -r text -p 19,0,15,5,3,6,4,20,8 -w BROWN_STR -b data/resources/50mpaths2 -j lines > "+FILE_TMP
             os.system(command)
             with open(FILE_TMP, 'r') as ftmp:
-                msg.value=ftmp.readline()
-            for res in process_jsons([json.loads(msgval)], header, m):
+                augmented=ftmp.readline()
+            for res in process_jsons([json.loads(augmented)], header, m):
                 print "Added misinformation to a json, resulting in the following json:", res
                 producer.produce(json.dumps(res))
