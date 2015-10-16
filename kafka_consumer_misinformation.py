@@ -40,7 +40,7 @@ with client.topics[topicout].get_producer() as producer:
             os.system(command)
             with open(FILE_TMP, 'r') as ftmp:
                 augmented=ftmp.readline()
-            for res in process_jsons([json.loads(augmented)], header, m):
+            for res in process_jsons(json.loads(augmented), header, m):
                 # print "Added misinformation to a json, resulting in the following json:", res
                 print msg.partition.id, msg.offset, res['pheme_sdqc'], json.loads(augmented)[0]['text'][:100]
                 producer.produce(json.dumps(res))
