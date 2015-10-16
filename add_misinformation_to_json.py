@@ -44,10 +44,11 @@ def map_to_string_label(lbl):
         return "comment"
 def process_jsons(jsons, header, m):
     for j in jsons:
+        j = j[0]
         X=np.zeros((1, len(header)))
         for indh, valh in enumerate(header):
             if "BROWN_STR" not in valh:
-                break
+                continue
             browncluster=valh.split("_")[2]
             if browncluster in j["BROWN_STR"]:
                 X[0,indh]=j["BROWN_STR"][browncluster]
