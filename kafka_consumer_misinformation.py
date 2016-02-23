@@ -28,13 +28,21 @@ consumer = client.topics[topicin].get_simple_consumer()
 with client.topics[topicout].get_producer() as producer:
     for msg in consumer:
         if msg is not None:
-            msgval = unicode(json.loads(msg.value)['tweet']['rawJson'])
-	    if json.loads(msgval)['lang'] != 'en':
-              continue
+            try:
+                msgval = json.loads(msg.value)
+            except:
+                print('bad json')
+                print(msg.value)
+                continue
+    	    if msgval['lang'] != 'en':
+                continue
+            print('Processing', msgval['id'])
             with open(FILE_TMP2, 'w') as ftmp:
                 try:
-                    ftmp.write(msgval)
-                except:
+                    ftmp.write(json.dumps(msgval))
+                except Exception, e:
+                    print('Failed to write to', FILE_TMP2)
+                    print(e)
                     continue
             command="cat "+FILE_TMP2+" | python text.py -t txt -r text -p 19,0,15,5,3,6,4,20,8 -w BROWN_STR -b data/resources/50mpaths2 -j lines > "+FILE_TMP
             os.system(command)
@@ -42,5 +50,5 @@ with client.topics[topicout].get_producer() as producer:
                 augmented=ftmp.readline()
             for res in process_jsons(json.loads(augmented), header, m):
                 # print "Added misinformation to a json, resulting in the following json:", res
-                print msg.partition.id, msg.offset, res['pheme_sdqc'], json.loads(augmented)[0]['text'][:100]
+                print(msg.partition.id, msg.offset, res['pheme_sdqc'], json.loads(augmented)[0]['text'][:100])
                 producer.produce(json.dumps(res))
