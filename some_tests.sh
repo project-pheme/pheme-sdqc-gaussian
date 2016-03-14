@@ -1,4 +1,4 @@
-JSON_MSG=kafka_example.txt #~/workspace/rumour_data/tweet-level-judgment/pheme-final-dataset/threads/en/ferguson/500307001629745152/reactions/500315576460668929.json
+JSON_MSG=kafka_example_files/kafka_example.txt #~/workspace/rumour_data/tweet-level-judgment/pheme-final-dataset/threads/en/ferguson/500307001629745152/reactions/500315576460668929.json
 TEXTPY_PATH=text.py
 BROWNCLUSTERS_PATH=data/resources/50mpaths2
 MODEL_PATH=results/store_models_test/BROWNGPjoinedfeaturesPooledLIN0.pick
