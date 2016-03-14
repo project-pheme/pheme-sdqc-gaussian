@@ -1,4 +1,15 @@
-This is kafka implementation of the SDQC system.
+#This is kafka implementation of the SDQC system.
+
+## ** Written in Python 2.7 **    
+
+To install enter into the command line  
+- pip install nltk==3.0.1 #also need to install corpora
+- pip install numpy==1.9.1
+- pip install scipy==0.15.1
+- pip install cloud==2.8.5
+- pip install scikit-learn==0.15.2
+- pip install git+git://github.com/SheffieldML/GPy.git@98f632e92ec5fafaca2683ba10cf8fc1fa2296cc
+- pip install matplotlib==1.4.2
 
 Run kafka_consumer_misinformation.py TOPIC1 TOPIC2 TRAININGDATAPATH MODELPATH to read jsons from TOPIC1 and output resulting jsons to TOPIC2.
 
