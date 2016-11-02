@@ -24,7 +24,7 @@ modelpath=sys.argv[4]
 header=open(trainingdatapath).readline().split()
 m=pickle.load(open(modelpath, "r"))
 client = KafkaClient(hosts="gatezkt1.storm:9092")
-consumer = client.topics[topicin].get_simple_consumer()
+consumer = client.topics[topicin].get_simple_consumer(consumer_group="sdqc")
 
 print time.strftime('%c'), 'starting'
 
