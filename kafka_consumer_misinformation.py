@@ -61,5 +61,5 @@ with client.topics[topicout].get_producer() as producer:
 
             for res in process_jsons(j, header, m):
                 # print "Added misinformation to a json, resulting in the following json:", res
-                print time.strftime('%c'), msg.partition.id, msg.offset, res['pheme_sdqc'], json.loads(augmented)[0]['text'][:100]
+                print time.strftime('%c'), msg.partition.id, msg.offset, res['pheme_sdqc'][0][0], '%0.3f'%(res['pheme_sdqc'][1]), res['id_str'], res['text'][:100].replace('\n',' ')
                 producer.produce(json.dumps(res))
